@@ -1,0 +1,15 @@
+<div class="sidebar">
+  <div class="sidebar-header">
+    <h2>Employee Dashboard</h2>
+  </div>
+  <ul class="sidebar-menu">
+    <li><a routerLink="/dashboard"> Dashboard</a></li>
+    <li class="dropdown">
+      <a href="#" (click)="toggleSubmenu()">Employee Management</a>
+      <ul class="subList" *ngIf="subList">
+        <li><a routerLink="/employee-management/create">Create Employee</a></li>
+        <li><a routerLink="/employee-management/view" >View Employee</a></li>
+      </ul>
+    </li>
+  </ul>
+</div>

@@ -1,0 +1,15 @@
+.content {
+    margin-left:18%;
+}
+
+.page {
+    display:flex;
+    flex-direction:column;
+}
+.side{
+    
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%; /* Full screen height */
+}

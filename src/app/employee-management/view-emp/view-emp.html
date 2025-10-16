@@ -1,0 +1,14 @@
+<h3 class="title">View Employee</h3>
+
+
+<div class="outer">
+    <ul>
+        <li *ngFor="let emp of employee">
+            <ul>
+                <li *ngFor="let e of emp">
+                    {{e}}
+                </li>
+            </ul>
+        </li>
+    </ul>
+</div>

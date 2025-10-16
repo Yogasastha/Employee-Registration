@@ -1,0 +1,35 @@
+{
+  "employees": [
+    {
+      "First Name ": "Yoga",
+      "Middle Name": "sastha",
+      "Last Name": "K",
+      "Phone Number": 8778116266,
+      "Date of Birth": "1900/07/12",
+      "Department": "IT",
+      "Gender": "Male",
+      "empId": "E100",
+      "id": "06e0"
+    },
+    {
+      "id": "E001",
+      "firstName": "Vijay",
+      "lastName": "S",
+      "middleName": "",
+      "date": "2006-10-01T18:30:00.000Z",
+      "gender": "Male",
+      "phoneNumber": "(966) 562-3273",
+      "department": "HR"
+    },
+    {
+      "id": "E002",
+      "firstName": "Selvam",
+      "lastName": "K",
+      "middleName": null,
+      "date": "2006-11-30T18:30:00.000Z",
+      "gender": "Female",
+      "phoneNumber": "(973) 267-326",
+      "department": "Finance"
+    }
+  ]
+}

@@ -1,0 +1,151 @@
+<div class="outer">
+  <div class="container">
+    <form class="form" [formGroup]="createForm" (ngSubmit)="create()">
+      <div class="form-group"></div>
+      <h3 class="title">Create Employee</h3>
+      <br />
+
+      <div class="form-group">
+        <label for="firstName">First Name <span class="asterisk">*</span></label>
+        <input
+          type="text"
+          class="form-control"
+          formControlName="firstName"
+          (keypress)="formatText($event)"
+        />
+        <div class="error">
+          <div *ngIf="isInvalidandTouched('firstName')">
+            <div *ngIf="getError('firstName', 'required')">First Name is required</div>
+            <div *ngIf="minLength('firstName', 'minlength')">
+              First Name must be at least 3 characters
+            </div>
+            <!-- <div *ngIf="getError('firstName', 'pattern')">
+                First Name can only contain letters and spaces
+              </div> -->
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Middle Name </label>
+        <input type="text" class="form-control" formControlName="middleName" />
+      </div>
+      <div class="form-group">
+        <label>Last Name <span class="asterisk">*</span></label>
+        <input type="text" class="form-control" formControlName="lastName" />
+
+        <div class="error">
+          <div *ngIf="isInvalidandTouched('lastName')">
+            <div *ngIf="getError('lastName', 'required')">Last Name is required</div>
+            <!-- <div *ngIf="getError('lastName', 'required')">Last Name is required</div> -->
+          </div>
+        </div>
+        <br />
+      </div>
+      <div class="form-group">
+        <label>Phone Number <span class="asterisk">*</span></label>
+        <input
+          type="text"
+          class="form-control"
+          formControlName="phoneNumber"
+          (input)="formatPhoneNumber($event)"
+        />
+        <div class="error">
+          <div *ngIf="isInvalidandTouched('phoneNumber')">
+            <div *ngIf="getError('phoneNumber', 'required')">Phone Number is required</div>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Date of Birth <span class="asterisk">*</span></label>
+        <br>
+        <div class="datePicker">
+        <mat-form-field>
+            <input
+              matInput
+              [matDatepicker]="picker"
+              placeholder="Choose a date"
+              [min]="minDate"
+              [max]="maxDate"
+              formControlName="date"
+            />
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+    </div>
+        <div class="error">
+          <div *ngIf="isInvalidandTouched('date')">
+            <div *ngIf="getError('date', 'required')">Date is required</div>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Department <span class="asterisk">*</span></label>
+        <select formControlName="department">
+          <option value="HR">HR</option>
+          <option value="IT">IT</option>
+          <option value="Finance">Finance</option>
+          <option value="Marketing">Marketing</option>
+        </select>
+
+        <div class="error">
+          <div *ngIf="isInvalidandTouched('department')">
+            <div *ngIf="getError('department', 'required')">Department is required</div>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label name="gender">Gender <span class="asterisk">*</span> </label>
+        <input type="radio" id="Male" value="Male" name="gender" formControlName="gender" />
+        <label for="Male">Male</label>
+        <input type="radio" id="Female" value="Female" name="gender"  formControlName="gender"/>
+        <label for="Female">Female</label>
+        <input type="radio" id="Other" value="Other" name="gender"  formControlName="gender"/>
+        <label for="Other">Other</label>
+      </div>
+      <div class="error">
+        <div *ngIf="isInvalidandTouched('gender')">
+          <div *ngIf="getError('gender', 'required')">Gender is required</div>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="button">
+          <!-- <button type="submit" class="cancelbtn">Cancel</button> -->
+          <button
+            type="submit"
+            class="createbtn"
+            [disabled]="this.createForm.invalid"
+          >
+            Create
+          </button>
+        </div>
+      </div>
+    </form>
+    <!-- <ul>
+        <li *ngFor="display()">
+
+        </li>
+    </ul> -->
+  </div>
+</div>
+<!-- 
+
+
+Employee ID - Auto-generated,   Format: E0001, E0002, ...      
+
+First Name -	Text, Required
+
+Middle Name - Optional
+
+Last Name - Required
+
+Phone Number - 	10 digits(US Format)
+
+Date of Birth - Date Picker, Required
+
+Department - 	 Dropdown, e.g. HR, IT, Finance, Marketing
+
+Gender -  Radio Buttons - Male / Female / Other
+
+       
+
+-->
