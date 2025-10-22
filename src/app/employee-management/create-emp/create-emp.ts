@@ -1,32 +1,43 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
-import {Employee} from '../create-emp/Employee.Interface'
-import {Service} from '../../Service-Module/service'
+import { Employee } from '../create-emp/Employee.Interface';
+import { Service } from '../../Service-Module/service';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-create-emp',
   standalone: false,
   templateUrl: './create-emp.html',
-  styleUrl: './create-emp.css',
+  styleUrls: ['./create-emp.css'],
 })
 export class CreateEmp implements OnInit {
   createForm: FormGroup | any;
   employee: Employee | any;
-  id: number = 0; 
-  empId: string = 'E00';
-  minDate = '1990-05-15'
+  editId: string | any = '';
+  minDate = '1990-05-15';
   maxDate = '2006-12-01';
-  constructor(private fb: FormBuilder, private service: Service) {}
 
+  constructor(
+    private fb: FormBuilder,
+    private service: Service,
+    private paramsAccess: ActivatedRoute,
+    private route: Router
+  ) {}
 
-  getLastData() {
-    // *ngFor = 
-  }
-  generateId() :string{
-    this.id = this.id+1;
-    return this.empId + '' + (this.id);
-  }
   ngOnInit() {
+    // this.editId = this.paramsAccess.snapshot.paramMap.get('id');
+    console.log(this.editId);
+    this.paramsAccess.params.subscribe((res) => {
+      this.editId = res['id'];
+      this.loadFormData(this.editId);
+    });
+
+    // this.editId = this.route.snapshot.paramMap.get('id');
+
+    this.service.getData().subscribe((employees: Employee[]) => {
+      this.service.updateLastId(employees);
+    });
+
     this.createForm = this.fb.group({
       firstName: [
         '',
@@ -45,17 +56,71 @@ export class CreateEmp implements OnInit {
     });
   }
 
+  formatDate(date: string): string {
+    const d = new Date(date);
+    const options: Intl.DateTimeFormatOptions = { year: 'numeric', month: 'short', day: 'numeric' };
+    return d.toLocaleDateString('en-US', options);
+  }
+  formatChangeTo(date: Date) {
+    const isoDateObject = new Date(
+      Date.UTC(
+        date.getUTCFullYear(),
+        date.getUTCMonth(),
+        date.getUTCDate(),
+        date.getUTCHours(),
+        date.getUTCMinutes(),
+        date.getUTCSeconds(),
+        date.getUTCMilliseconds()
+      )
+    );
+    return isoDateObject;
+  }
+
+  loadFormData(editId: string) {
+    this.service.getUserById(editId).subscribe((res) => {
+      res.date = this.formatChangeTo(new Date(res.date));
+      this.createForm.patchValue(res);
+    });
+  }
+
+  generateId(): string {
+    return this.service.getNextId();
+  }
+
   create() {
     this.employee = this.createForm.value;
+    this.employee.date = this.formatDate(this.employee.date);
     this.employee.id = this.generateId();
-    this.employee.
-    this.service.postData(this.employee);
-    this.createForm.reset();
+    if (this.editId) {
+      this.updateRecord(this.editId, this.createForm.value);
+      this.editId = '';
+      this.reloadData();
+      this.route.navigate(['employee-management/view']);
+    } else {
+      this.service.postData(this.employee);
+      this.createForm.reset();
+      this.reloadData();
+    }
+  }
+
+  reloadData() {
+    this.service.getData().subscribe((employees: Employee[]) => {
+      this.service.updateLastId(employees);
+    });
+  }
+  updateRecord(id: number, updatedData: any) {
+    this.service.updateData(id, updatedData).subscribe((response) => {
+      if (response) {
+        console.log('Data updated successfully:', response);
+      } else {
+        console.log('Failed to update data');
+      }
+    });
   }
 
   formatText(event: KeyboardEvent) {
     const key = event.key;
-    if (/[a-zA-z ]/.test(key)) {
+    if (/[a-zA-Z ]/.test(key)) {
       return true;
     } else {
       event.preventDefault();
@@ -63,8 +128,7 @@ export class CreateEmp implements OnInit {
     }
   }
 
-
-    formatPhoneNumber(event: any) {
+  formatPhoneNumber(event: any) {
     const e = event.target as HTMLInputElement;
     let value = e.value ?? '';
     value = value.replace(/\D/g, '');
@@ -77,40 +141,28 @@ export class CreateEmp implements OnInit {
 
     this.setValue('phoneNumber').setValue(value);
   }
-    setValue(controlName: string) {
+
+  setValue(controlName: string) {
     return this.createForm.controls[controlName];
   }
-  // getError(value: string, error :string) :boolean{
-  //   // return this.signUpForm.controls[controlName]?.errors?.[errorCode];
-  //   return this.createForm.controls[value]?.errors?.[error];
-  // }
 
   minLength(controlName: string, errorCode: string): any {
-    console.log(this.createForm.controls.firstName);
-    if(errorCode =='minlength'){
-      var actualLength =  this.createForm.controls[controlName]?.errors?.[errorCode]?.actualLength;
-      var requiredLength = this.createForm.controls[controlName]?.errors?.[errorCode]?.requiredLength;
-      if(actualLength < requiredLength){
-        return true;  
-      }else{
-        return false
-      }
-    }else{
+    if (errorCode == 'minlength') {
+      var actualLength = this.createForm.controls[controlName]?.errors?.[errorCode]?.actualLength;
+      var requiredLength =
+        this.createForm.controls[controlName]?.errors?.[errorCode]?.requiredLength;
+      return actualLength < requiredLength;
+    } else {
       return this.createForm.controls[controlName]?.errors?.[errorCode];
     }
   }
 
-
-  
   getError(controlName: string, errorCode: string): any {
-    
     return this.createForm.controls[controlName]?.errors?.[errorCode];
   }
 
   isInvalidandTouched(value: string): boolean {
     const control = this.createForm.get(value);
-    // console.log("hi")
-    // console.log(control.touched);
     return control && control.invalid && control.touched;
   }
 
@@ -118,6 +170,3 @@ export class CreateEmp implements OnInit {
     return this.createForm.value;
   }
 }
-// const control = new FormControl('ng', Validators.minLength(3));
-
-// console.log(control.errors);

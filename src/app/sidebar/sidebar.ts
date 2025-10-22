@@ -4,11 +4,10 @@ import { Component } from '@angular/core';
   selector: 'app-sidebar',
   standalone: false,
   templateUrl: './sidebar.html',
-  styleUrl: './sidebar.css'
+  styleUrl: './sidebar.css',
 })
 export class Sidebar {
-  
-   subList = false;
+  subList = false;
 
   toggleSubmenu(): void {
     this.subList = !this.subList;

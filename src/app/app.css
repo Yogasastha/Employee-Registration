@@ -1,15 +1,22 @@
 .content {
-    margin-left:18%;
+  margin-left: 18%;
 }
 
 .page {
-    display:flex;
-    flex-direction:column;
+  display: flex;
+  flex-direction: column;
 }
-.side{
-    
+.side {
   position: fixed;
   top: 0;
   left: 0;
-  height: 100%; /* Full screen height */
+  height: 100vh;
+}
+
+.footer {
+  position: fixed;
+  bottom: 0px;
+  background-color: rgb(249, 248, 248);
+  padding: 15px;
+  width: 100%;
 }

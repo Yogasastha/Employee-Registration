@@ -1,35 +1,84 @@
 {
   "employees": [
     {
-      "First Name ": "Yoga",
-      "Middle Name": "sastha",
-      "Last Name": "K",
-      "Phone Number": 8778116266,
-      "Date of Birth": "1900/07/12",
-      "Department": "IT",
-      "Gender": "Male",
-      "empId": "E100",
-      "id": "06e0"
-    },
-    {
       "id": "E001",
-      "firstName": "Vijay",
-      "lastName": "S",
-      "middleName": "",
-      "date": "2006-10-01T18:30:00.000Z",
+      "firstName": "Yogasastha",
+      "lastName": "K",
+      "middleName": null,
+      "date": "Dec 1, 2006",
       "gender": "Male",
-      "phoneNumber": "(966) 562-3273",
-      "department": "HR"
+      "phoneNumber": "(887) 781-1626",
+      "department": "IT"
     },
     {
       "id": "E002",
-      "firstName": "Selvam",
+      "firstName": "Manoj",
       "lastName": "K",
       "middleName": null,
-      "date": "2006-11-30T18:30:00.000Z",
+      "date": "Dec 1, 2006",
+      "gender": "Male",
+      "phoneNumber": "(887) 781-1626",
+      "department": "IT"
+    },
+    {
+      "id": "E003",
+      "firstName": "Sivakumar",
+      "lastName": "S",
+      "middleName": "",
+      "date": "Dec 1, 2006",
+      "gender": "Male",
+      "phoneNumber": "(875) 362-5362",
+      "department": "Marketing"
+    },
+    {
+      "id": "E004",
+      "firstName": "Jerry",
+      "lastName": "S",
+      "middleName": "",
+      "date": "Sep 13, 2006",
+      "gender": "Male",
+      "phoneNumber": "(978) 672-671",
+      "department": "HR"
+    },
+    {
+      "id": "E005",
+      "firstName": "Selvam",
+      "lastName": "K",
+      "middleName": "",
+      "date": "Sep 12, 2006",
+      "gender": "Male",
+      "phoneNumber": "(087) 781-1626",
+      "department": "HR"
+    },
+    {
+      "id": "E006",
+      "firstName": "Yogasastha",
+      "lastName": "K",
+      "middleName": "",
+      "date": "Sep 19, 2006",
+      "gender": "Male",
+      "phoneNumber": "(087) 781-1626",
+      "department": "IT"
+    },
+    {
+      "id": "E007",
+      "firstName": "Selvam",
+      "lastName": "K",
+      "middleName": "",
+      "date": "Sep 13, 2006",
+      "gender": "Male",
+      "phoneNumber": "(977) 627-3267",
+      "department": "IT"
+    },
+    {
+      "id": "E010",
+      "firstName": "Vedha",
+      "lastName": "S",
+      "middleName": "",
+      "date": "Oct 4, 2006",
       "gender": "Female",
-      "phoneNumber": "(973) 267-326",
-      "department": "Finance"
+      "phoneNumber": "(976) 545-6644",
+      "department": "IT"
     }
   ]
 }

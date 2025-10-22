@@ -1,14 +1,71 @@
-<h3 class="title">View Employee</h3>
+<div class="employee-list-container">
+  <h2>Employee List</h2>
+  <div class="search-box">
+    <div class="label">
+      <input
+        matInput
+        [(ngModel)]="searchQuery"
+        class="search"
+        (input)="searchFilter()"
+        placeholder="Search..."
+      />
+      <button mat-button (click)="downloadPDF()" [disabled]="dataNotFound">Download PDF</button>
+    </div>
+  </div>
+  <table mat-table [dataSource]="dataSource" matSort>
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>ID</th>
+      <td mat-cell *matCellDef="let employee">{{ employee.id }}</td>
+    </ng-container>
 
+    <ng-container matColumnDef="firstName">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>First Name</th>
+      <td mat-cell *matCellDef="let employee">{{ employee.firstName }}</td>
+    </ng-container>
 
-<div class="outer">
-    <ul>
-        <li *ngFor="let emp of employee">
-            <ul>
-                <li *ngFor="let e of emp">
-                    {{e}}
-                </li>
-            </ul>
-        </li>
-    </ul>
+    <ng-container matColumnDef="lastName">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Last Name</th>
+      <td mat-cell *matCellDef="let employee">{{ employee.lastName }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="date">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Date of Birth</th>
+      <td mat-cell *matCellDef="let employee">{{ employee.date }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="gender">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Gender</th>
+      <td mat-cell *matCellDef="let employee">{{ employee.gender }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="department">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Department</th>
+      <td mat-cell *matCellDef="let employee">{{ employee.department }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="phoneNumber">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Phone Number</th>
+      <td mat-cell *matCellDef="let employee">{{ employee.phoneNumber }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="Action">
+      <th mat-header-cell *matHeaderCellDef>Actions</th>
+      <td mat-cell *matCellDef="let employee">
+        <fa-icon [icon]="faEdit" (click)="onEdit(employee.id)" class="edit"></fa-icon>
+        <fa-icon [icon]="faDelete" (click)="onDelete(employee.id)" class="delete"></fa-icon>
+      </td>
+    </ng-container>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+  </table>
+  <div *ngIf="dataNotFound" class="dataNotFound">
+    <p>No records found</p>
+  </div>
+  <mat-paginator
+    [pageSizeOptions]="[5, 10, 20]"
+    showFirstLastButtons
+    [pageSize]=""
+    aria-label="Select page of periodic elements"
+  >
+  </mat-paginator>
 </div>
